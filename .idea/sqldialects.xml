@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__create-database.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V2__create-address-and-branch-tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V3__create_goals_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V4__create_employees_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V5__create_specification_and_car_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V6__create_customer_and_tradeincredit_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V7__create_sales_table.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V8__add_foreign_key_constraints.sql" dialect="MySQL" />
+  </component>
+</project>
