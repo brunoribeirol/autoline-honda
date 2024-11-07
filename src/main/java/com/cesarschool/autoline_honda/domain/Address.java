@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Address
-{
+public class Address {
     private String addressPK; //address_Pk on the DB
     private String zipCode;
     private String street;

@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Branch
-{
+public class Branch {
     private String CNPJ;
     private String name;
     private String fkAddressPK;

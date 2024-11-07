@@ -6,7 +6,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class NewCars
-{
+public class NewCars {
     private String fkCarChassis;
 }

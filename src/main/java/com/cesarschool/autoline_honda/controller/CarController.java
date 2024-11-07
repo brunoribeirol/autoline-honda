@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/car")
-public class CarController
-{
+public class CarController {
     @Autowired
     private CarRepository carRepository;
 

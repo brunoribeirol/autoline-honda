@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UsedCars
-{
+public class UsedCars {
     private int mileage;
     private String fkcarChassis;
 }

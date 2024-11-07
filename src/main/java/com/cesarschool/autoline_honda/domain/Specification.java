@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Specification
-{
+public class Specification {
     private String specification_PK;
     private String category;
     private String model;

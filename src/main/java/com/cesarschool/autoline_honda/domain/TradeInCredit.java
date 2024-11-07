@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TradeInCredit
-{
+public class TradeInCredit {
     private int ID;
     private String fkCustomerCPF;
     private String fkUsedCarChassis;

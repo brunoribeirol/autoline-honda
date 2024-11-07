@@ -6,8 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Employees
-{
+public class Employees {
     private String name;
     private String CPF;
     private String position;

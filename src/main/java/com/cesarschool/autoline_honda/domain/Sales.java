@@ -8,8 +8,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Sales
-{
+public class Sales {
     private String fkEmployeesCPF;
     private String fkCarChassis;
     private String fkCustomerCPF;
