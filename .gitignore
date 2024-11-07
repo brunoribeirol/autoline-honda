@@ -24,10 +24,10 @@ hs_err_pid*
 replay_pid*
 
 # Maven build output
-/target/
+target/
 
 # IntelliJ IDEA files
-/.idea/
+.idea/
 
 # Eclipse files
 .project
