@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.cesarschool.autoline_honda.AutolineHondaApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.747 s -- in com.cesarschool.autoline_honda.AutolineHondaApplicationTests
