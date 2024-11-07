@@ -1,7 +1,7 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -10,7 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -19,9 +19,36 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# VM crash logs
 hs_err_pid*
 replay_pid*
 
-# application.properties
+# Maven build output
+/target/
+
+# IntelliJ IDEA files
+/.idea/
+
+# Eclipse files
+.project
+.classpath
+.settings/
+
+# Maven Wrapper files (if using the Maven wrapper)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Spring Boot DevTools
+.spring-boot-devtools/
+
+# Environment variable files (e.g., for local dev config)
+.env
+*.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Application properties (if you don't want to track environment-specific configurations)
 src/main/resources/application.properties
