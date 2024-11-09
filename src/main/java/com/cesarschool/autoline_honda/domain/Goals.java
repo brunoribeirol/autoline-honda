@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Goals {
-    private int ID;
-    private Date date;
-    private int car_quantity;
-    private String fk_Branch_CNPJ;
+    private int id;
+    private Date goalDate;
+    private int carQuantity;
+    private String branchCnpj;
 }

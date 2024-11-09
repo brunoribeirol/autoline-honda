@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 
 public class TradeInCredit {
-    private int ID;
-    private String fkCustomerCPF;
-    private String fkUsedCarChassis;
+    private int id;
+    private String customerCpf;
+    private String usedCarChassis;
     private float value;
 }

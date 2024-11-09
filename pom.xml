@@ -90,6 +90,10 @@
 				<version>6.5.7</version>
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/autoline_honda</url>
+					<!--Change it to use flyway
+					mvn flyway:repair
+					mvn flyway:migrate
+					-->
 					<user>${DB_USER}</user>
 					<password>${DB_PASSWORD}</password>
 				</configuration>

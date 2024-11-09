@@ -1,20 +1,22 @@
 package com.cesarschool.autoline_honda.domain;
 
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Data // Automatically generates getters, setters, toString, equals e hashCode
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Sales {
-    private String fkEmployeesCPF;
-    private String fkCarChassis;
-    private String fkCustomerCPF;
-    private int ID;
+    private int id;
+    private String employeeCpf;
+    private String carChassis;
+    private String customerCpf;
     private float finalPrice;
     private String saleStatus;
-    private Date date;
+    private LocalDate saleDate;
     private float discount;
 }

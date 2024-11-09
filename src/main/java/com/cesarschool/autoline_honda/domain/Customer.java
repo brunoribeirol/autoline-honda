@@ -2,20 +2,20 @@ package com.cesarschool.autoline_honda.domain;
 
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data // Automatically generates getters, setters, toString, equals e hashCode
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Customer {
-    private String CPF;
+    private String cpf;
     private String name;
     private String driverLicense;
     private String phoneNumber;
-    private Date birth_date;
+    private LocalDate birthDate;
     private String neighborhood;
-    private int number;
+    private int addressNumber;
     private String state;
     private String zipCode;
     private String street;

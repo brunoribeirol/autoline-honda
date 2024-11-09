@@ -1,0 +1,5 @@
+CREATE TABLE Branch
+(
+    cnpj VARCHAR(14) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);

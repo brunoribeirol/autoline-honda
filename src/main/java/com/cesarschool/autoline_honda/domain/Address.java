@@ -7,10 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Address {
-    private String addressPK; //address_Pk on the DB
+    private String branchCnpj; //branch_cpnj on the db
     private String zipCode;
     private String street;
-    private int number;
+    private int addressNumber;
     private String neighborhood;
     private String city;
     private String state;

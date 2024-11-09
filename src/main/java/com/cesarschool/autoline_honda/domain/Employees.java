@@ -8,8 +8,9 @@ import lombok.*;
 
 public class Employees {
     private String name;
-    private String CPF;
+    private String cpf;
+    private float salary;
     private String position;
-    private String fkSupervisorCPF;
-    private String fkBranchCNPJ;
+    private String supervisorCpf;
+    private String branchCnpj;
 }

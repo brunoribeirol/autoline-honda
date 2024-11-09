@@ -7,7 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Branch {
-    private String CNPJ;
+    private String cnpj; //String because it has a determined size (14)
     private String name;
-    private String fkAddressPK;
 }

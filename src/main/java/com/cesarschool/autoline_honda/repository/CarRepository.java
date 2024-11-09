@@ -1,14 +1,12 @@
 package com.cesarschool.autoline_honda.repository;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import com.cesarschool.autoline_honda.domain.Car;
+import java.util.List;
 
-@Repository
-public class CarRepository {
-    private final JdbcTemplate jdbcTemplate;
-
-    public CarRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
+public interface CarRepository {
+    List<Car> findAll();
+    Car findById(String chassis);
+    void create(Car car);
+    void update(Car car);
+    void deleteById(String chassis);
 }

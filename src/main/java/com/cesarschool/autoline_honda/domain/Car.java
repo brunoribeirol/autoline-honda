@@ -10,10 +10,10 @@ public class Car {
     private String chassis;
     private float price;
     private String color;
-    private int wheels;
+    private int wheelSize;
     private String fuelType;
-    private String fkSpecificationPK;
     private int year;
     private String engine;
     private String transmission;
+    private int mileage;
 }
