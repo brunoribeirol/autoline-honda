@@ -1,7 +1,7 @@
 CREATE TABLE Address
 (
-    branch_cnpj    VARCHAR(14) PRIMARY KEY,
-    zip_code       VARCHAR(8)   NOT NULL, -- int(8) int WITH width deprecated -> the right is just int
+    branch_cnpj    VARCHAR(14),
+    zip_code       VARCHAR(8)   NOT NULL,
     street         VARCHAR(255) NOT NULL,
     address_number INT          NOT NULL,
     neighborhood   VARCHAR(100) NOT NULL,

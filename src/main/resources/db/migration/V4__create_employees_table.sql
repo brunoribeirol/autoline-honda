@@ -8,7 +8,7 @@ CREATE TABLE Employees
     branch_cnpj    VARCHAR(14),
 
     CONSTRAINT fk_Employees_Supervisor FOREIGN KEY (supervisor_cpf)
-        REFERENCES Employees (CPF) ON DELETE SET NULL,
+        REFERENCES Employees (cpf) ON DELETE SET NULL,
     CONSTRAINT fk_Employees_Branch FOREIGN KEY (branch_cnpj)
         REFERENCES Branch (cnpj) ON DELETE RESTRICT
 );
