@@ -31,15 +31,15 @@ public class SpecificationService {
     }
 
     // Delete a specification by category and model
-    public void deleteSpecification(String category, String model) {
-        if (specificationRepository.deleteSpecification(category, model) == 0) {
-            throw new RuntimeException("Failed to delete the specification with category: " + category + " and model: " + model);
+    public void deleteSpecificationByCarChassis(String carChassis) {
+        if (specificationRepository.deleteSpecificationByCarChassis(carChassis) == 0) {
+            throw new RuntimeException("Failed to delete the specification of the car with: " + carChassis);
         }
     }
 
     // Find a specification by category and model
-    public Optional<Specification> findSpecificationByCategoryAndModel(String category, String model) {
-        return specificationRepository.findSpecificationByCategoryAndModel(category, model);
+    public Optional<Specification> findSpecificationByCarChassis(String carChassis) {
+        return specificationRepository.findSpecificationByCarChassis(carChassis);
     }
 
     // Find all specifications

@@ -27,28 +27,28 @@ public class SpecificationRepositoryImpl implements SpecificationRepository {
     }
 
     @Override
-    public int updateSpecification(Specification specification) {
+    public int updateSpecification(Specification specification) { //trocar caso precise fazer update
         String sql = "UPDATE Specification SET version = ?, car_chassis = ? WHERE category = ? AND model = ?";
         return jdbcTemplate.update(sql, specification.getVersion(), specification.getCarChassis(),
                 specification.getCategory(), specification.getModel());
     }
 
     @Override
-    public int deleteSpecification(String category, String model) {
-        String sql = "DELETE FROM Specification WHERE category = ? AND model = ?";
-        return jdbcTemplate.update(sql, category, model);
+    public int deleteSpecificationByCarChassis(String carChassis) {
+        String sql = "DELETE FROM Specification WHERE car_chassis = ?";
+        return jdbcTemplate.update(sql, carChassis);
     }
 
     @Override
-    public Optional<Specification> findSpecificationByCategoryAndModel(String category, String model) {
-        String sql = "SELECT * FROM Specification WHERE category = ? AND model = ?";
+    public Optional<Specification> findSpecificationByCarChassis(String carChassis) {
+        String sql = "SELECT * FROM Specification WHERE car_chassis = ?";
         try {
             Specification specification = jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new Specification(
                     rs.getString("category"),
                     rs.getString("model"),
                     rs.getString("version"),
                     rs.getString("car_chassis")
-            ), category, model);
+            ), carChassis);
             return Optional.ofNullable(specification);
         } catch (DataAccessException e) {
             return Optional.empty();

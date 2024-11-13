@@ -13,11 +13,11 @@ public interface SpecificationRepository {
     // Update an existing specification
     int updateSpecification(Specification specification);
 
-    // Delete a specification by category and model (or chassis)
-    int deleteSpecification(String category, String model);
+    // Delete a specification by chassis
+    int deleteSpecificationByCarChassis(String carChassis);
 
-    // Find a specification by category and model (or chassis)
-    Optional<Specification> findSpecificationByCategoryAndModel(String category, String model);
+    // Find a specification by chassis
+    Optional<Specification> findSpecificationByCarChassis(String carChassis);
 
     // Find all specifications
     List<Specification> findAllSpecifications();

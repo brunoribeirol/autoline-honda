@@ -33,9 +33,9 @@ public class SpecificationController {
     }
 
     // Endpoint to get a specification by category and model
-    @GetMapping("/{category}/{model}")
-    public ResponseEntity<Specification> getSpecification(@PathVariable String category, @PathVariable String model) {
-        Optional<Specification> specificationOptional = specificationService.findSpecificationByCategoryAndModel(category, model);
+    @GetMapping("/{carChassis}")
+    public ResponseEntity<Specification> getSpecificationByCarChassis(@PathVariable String carChassis) {
+        Optional<Specification> specificationOptional = specificationService.findSpecificationByCarChassis(carChassis);
         return specificationOptional.map(specification -> new ResponseEntity<>(specification, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));  // Return 404 if not found
     }
@@ -48,11 +48,10 @@ public class SpecificationController {
     }
 
     // Endpoint to update a specification by category and model
-    @PutMapping("/{category}/{model}")
-    public ResponseEntity<Specification> updateSpecification(@PathVariable String category, @PathVariable String model,
+    @PutMapping("/{carChassis}")
+    public ResponseEntity<Specification> updateSpecification(@PathVariable String carChassis,
                                                              @RequestBody Specification specification) {
-        specification.setCategory(category);  // Ensure category and model are set in the specification object
-        specification.setModel(model);
+        specification.setCategory(carChassis);  // Ensure category and model are set in the specification object
         try {
             Specification updatedSpecification = specificationService.updateSpecification(specification);
             return new ResponseEntity<>(updatedSpecification, HttpStatus.OK);  // Return status 200
@@ -62,10 +61,10 @@ public class SpecificationController {
     }
 
     // Endpoint to delete a specification by category and model
-    @DeleteMapping("/{category}/{model}")
-    public ResponseEntity<Void> deleteSpecification(@PathVariable String category, @PathVariable String model) {
+    @DeleteMapping("/{carChassis}")
+    public ResponseEntity<Void> deleteSpecificationByCarChassis(@PathVariable String carChassis) {
         try {
-            specificationService.deleteSpecification(category, model);
+            specificationService.deleteSpecificationByCarChassis(carChassis);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Return status 204 if deletion was successful
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Return 404 if not found

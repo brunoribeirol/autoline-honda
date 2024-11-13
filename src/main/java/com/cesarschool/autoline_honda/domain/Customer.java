@@ -2,7 +2,7 @@ package com.cesarschool.autoline_honda.domain;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 @Data // Automatically generates getters, setters, toString, equals e hashCode
 @AllArgsConstructor
@@ -13,7 +13,7 @@ public class Customer {
     private String name;
     private String driverLicense;
     private String phoneNumber;
-    private LocalDate birthDate;
+    private Date birthDate;
     private String neighborhood;
     private int addressNumber;
     private String state;
@@ -21,16 +21,3 @@ public class Customer {
     private String street;
     private String city;
 }
-/*{
-    "cpf"
-    "name"
-    "driverLicense"
-    "phoneNumber"
-    "birthDate"
-    "neighborhood"
-    "addressNumber"
-    "state"
-    "zipCode"
-    "street"
-    city
-}*/
