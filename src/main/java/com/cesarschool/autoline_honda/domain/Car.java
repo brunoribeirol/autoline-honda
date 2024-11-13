@@ -16,4 +16,5 @@ public class Car {
     private String engine;
     private String transmission;
     private int mileage;
+    private String carCondition;
 }

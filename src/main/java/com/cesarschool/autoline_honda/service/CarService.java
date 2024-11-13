@@ -16,16 +16,32 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
+//    // Create a new car
+//    public Car createCar(Car car) {
+//        carRepository.saveCar(car);
+//        return car;
+//    }
+//
+//    // Update an existing car
+//    public Car updateCar(Car car) {
+//        if (carRepository.updateCar(car) > 0) {
+//            return car;
+//        }
+//        throw new RuntimeException("Failed to update the car");
+//    }
+
     // Create a new car
     public Car createCar(Car car) {
         carRepository.saveCar(car);
-        return car;
+        // carCondition is automatically determined by the database based on mileage
+        return findCarByChassis(car.getChassis()).orElse(car); // Retrieve to include carCondition
     }
 
     // Update an existing car
     public Car updateCar(Car car) {
         if (carRepository.updateCar(car) > 0) {
-            return car;
+            // carCondition will be updated based on the mileage in the database
+            return findCarByChassis(car.getChassis()).orElse(car); // Retrieve to include carCondition
         }
         throw new RuntimeException("Failed to update the car");
     }

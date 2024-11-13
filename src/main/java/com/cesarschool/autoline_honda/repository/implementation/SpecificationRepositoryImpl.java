@@ -1,4 +1,4 @@
-package com.cesarschool.autoline_honda.repository.impl;
+package com.cesarschool.autoline_honda.repository.implementation;
 
 import com.cesarschool.autoline_honda.domain.Specification;
 import com.cesarschool.autoline_honda.repository.SpecificationRepository;

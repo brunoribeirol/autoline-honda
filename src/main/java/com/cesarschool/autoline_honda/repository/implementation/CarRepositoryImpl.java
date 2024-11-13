@@ -53,7 +53,8 @@ public class CarRepositoryImpl implements CarRepository {
                     rs.getInt("year"),
                     rs.getString("engine"),
                     rs.getString("transmission"),
-                    rs.getInt("mileage")
+                    rs.getInt("mileage"),
+                    rs.getString("car_condition")
             ), chassis);
             return Optional.ofNullable(car);
         } catch (DataAccessException e) {
@@ -73,7 +74,8 @@ public class CarRepositoryImpl implements CarRepository {
                 rs.getInt("year"),
                 rs.getString("engine"),
                 rs.getString("transmission"),
-                rs.getInt("mileage")
+                rs.getInt("mileage"),
+                rs.getString("car_condition")
         ));
     }
 }
