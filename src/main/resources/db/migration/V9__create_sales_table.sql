@@ -1,6 +1,6 @@
 CREATE TABLE Sales
 (
-    id           INT PRIMARY KEY AUTO_INCREMENT,
+    sale_id      INT PRIMARY KEY AUTO_INCREMENT,
     employee_cpf VARCHAR(11),
     car_chassis  VARCHAR(17),
     customer_cpf VARCHAR(11),

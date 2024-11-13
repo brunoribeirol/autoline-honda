@@ -1,6 +1,6 @@
 package com.cesarschool.autoline_honda.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Goals {
-    private int id;
+    private int goalId;
     private Date goalDate;
     private int carQuantity;
     private String branchCnpj;

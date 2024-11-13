@@ -1,6 +1,6 @@
 CREATE TABLE TradeInCredit
 (
-    id               INT PRIMARY KEY AUTO_INCREMENT,
+    trade_id         INT PRIMARY KEY AUTO_INCREMENT,
     customer_cpf     VARCHAR(11),
     used_car_chassis VARCHAR(17),
     value            DECIMAL(10, 2) CHECK (value > 0),

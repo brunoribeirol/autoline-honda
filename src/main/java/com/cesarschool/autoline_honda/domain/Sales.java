@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 
 public class Sales {
-    private int id;
+    private int saleId;
     private String employeeCpf;
     private String carChassis;
     private String customerCpf;

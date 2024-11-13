@@ -1,6 +1,6 @@
 CREATE TABLE Goals
 (
-    id           INT PRIMARY KEY AUTO_INCREMENT,
+    goal_id      INT PRIMARY KEY AUTO_INCREMENT,
     goal_date    DATE NOT NULL,
     car_quantity INT  NOT NULL CHECK (car_quantity > 0),
     branch_cnpj  VARCHAR(14),

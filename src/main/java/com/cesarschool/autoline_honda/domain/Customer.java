@@ -21,3 +21,16 @@ public class Customer {
     private String street;
     private String city;
 }
+/*{
+    "cpf"
+    "name"
+    "driverLicense"
+    "phoneNumber"
+    "birthDate"
+    "neighborhood"
+    "addressNumber"
+    "state"
+    "zipCode"
+    "street"
+    city
+}*/

@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 
 public class TradeInCredit {
-    private int id;
+    private int tradeId;
     private String customerCpf;
     private String usedCarChassis;
     private float value;
