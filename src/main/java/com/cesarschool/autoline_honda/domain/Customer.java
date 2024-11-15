@@ -12,7 +12,6 @@ public class Customer {
     private String cpf;
     private String name;
     private String driverLicense;
-    private String phoneNumber;
     private Date birthDate;
     private String neighborhood;
     private int addressNumber;

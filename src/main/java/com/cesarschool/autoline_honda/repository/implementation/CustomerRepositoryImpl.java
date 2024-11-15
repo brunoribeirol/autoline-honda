@@ -24,8 +24,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public int saveCustomer(Customer customer) {
-        String sql = "INSERT INTO customer (cpf, name, driver_license, phone, birth_date, neighborhood, address_number, state, zip_code, street, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customer.getCpf(), customer.getName(), customer.getDriverLicense(), customer.getPhoneNumber(),
+        String sql = "INSERT INTO customer (cpf, name, driver_license, birth_date, neighborhood, address_number, state, zip_code, street, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, customer.getCpf(), customer.getName(), customer.getDriverLicense(),
                 customer.getBirthDate(), customer.getNeighborhood(), customer.getAddressNumber(), customer.getState(),
                 customer.getZipCode(), customer.getStreet(), customer.getCity());
     }
@@ -33,8 +33,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public int updateCustomer(Customer customer) {
-        String sql = "UPDATE customer SET name = ?, driver_license = ?, phone = ?, birth_date = ?, neighborhood = ?, address_number = ?, state = ?, zip_code = ?, street = ?, city = ? WHERE cpf = ?";
-        return jdbcTemplate.update(sql, customer.getName(), customer.getDriverLicense(), customer.getPhoneNumber(),
+        String sql = "UPDATE customer SET name = ?, driver_license = ?, birth_date = ?, neighborhood = ?, address_number = ?, state = ?, zip_code = ?, street = ?, city = ? WHERE cpf = ?";
+        return jdbcTemplate.update(sql, customer.getName(), customer.getDriverLicense(),
                 customer.getBirthDate(), customer.getNeighborhood(), customer.getAddressNumber(), customer.getState(),
                 customer.getZipCode(), customer.getStreet(), customer.getCity(), customer.getCpf());
     }
@@ -52,7 +52,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 rs.getString("cpf"),
                 rs.getString("name"),
                 rs.getString("driver_license"),
-                rs.getString("phone"),
                 rs.getDate("birth_date"),
                 rs.getString("neighborhood"),
                 rs.getInt("address_number"),
@@ -72,7 +71,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 rs.getString("cpf"),
                 rs.getString("name"),
                 rs.getString("driver_license"),
-                rs.getString("phone"),
                 rs.getDate("birth_date"),
                 rs.getString("neighborhood"),
                 rs.getInt("address_number"),

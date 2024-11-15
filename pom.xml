@@ -94,8 +94,8 @@
 					mvn flyway:repair
 					mvn flyway:migrate
 					-->
-					<user>${DB_USER}</user>
-					<password>${DB_PASSWORD}</password>
+					<user>root</user>
+					<password>Vp3tr1bu2002!</password>
 				</configuration>
 			</plugin>
 		</plugins>
