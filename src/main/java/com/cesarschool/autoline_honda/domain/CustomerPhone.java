@@ -9,5 +9,3 @@ public class CustomerPhone {
     private String customerCpf;
     private String phoneNumber;
 }
- /*
-    private String phoneNumber;*/

@@ -20,7 +20,6 @@ public class CustomerPhoneController {
         this.customerPhoneService = customerPhoneService;
     }
 
-    // Endpoint para adicionar um número de telefone para um cliente
     @PostMapping
     public ResponseEntity<String> addPhone(@RequestBody CustomerPhone customerPhone) {
         try {
@@ -31,7 +30,6 @@ public class CustomerPhoneController {
         }
     }
 
-    // Endpoint para obter todos os números de telefone de um cliente
     @GetMapping("/{cpf}")
     public ResponseEntity<List<CustomerPhone>> getPhonesByCustomerCpf(@PathVariable String cpf) {
         List<CustomerPhone> phones = customerPhoneService.getPhonesByCustomerCpf(cpf);
@@ -41,7 +39,6 @@ public class CustomerPhoneController {
         return new ResponseEntity<>(phones, HttpStatus.OK);
     }
 
-    // Endpoint para deletar todos os números de telefone de um cliente
     @DeleteMapping("/{cpf}")
     public ResponseEntity<String> deletePhonesByCustomerCpf(@PathVariable String cpf) {
         try {

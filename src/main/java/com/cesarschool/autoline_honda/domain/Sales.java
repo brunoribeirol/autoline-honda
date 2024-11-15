@@ -6,7 +6,7 @@ import org.springframework.cglib.core.Local;
 import java.time.LocalDate;
 
 
-@Data // Automatically generates getters, setters, toString, equals e hashCode
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 

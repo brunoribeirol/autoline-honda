@@ -32,7 +32,7 @@ public class GoalsController {
     }
 
     @GetMapping("/{goalId}")
-    public ResponseEntity<Goals> getGoalByGoalId(@PathVariable int goalId) {  // Updated method to use goalId
+    public ResponseEntity<Goals> getGoalByGoalId(@PathVariable int goalId) {
         Optional<Goals> goalOptional = goalsService.findGoalByGoalId(goalId);
         return goalOptional.map(goal -> new ResponseEntity<>(goal, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -45,8 +45,8 @@ public class GoalsController {
     }
 
     @PutMapping("/{goalId}")
-    public ResponseEntity<Goals> updateGoal(@PathVariable int goalId, @RequestBody Goals goal) {  // Updated method to use goalId
-        goal.setGoalId(goalId);  // Set goalId to ensure correct update
+    public ResponseEntity<Goals> updateGoal(@PathVariable int goalId, @RequestBody Goals goal) {
+        goal.setGoalId(goalId);
         try {
             Goals updatedGoal = goalsService.updateGoal(goal);
             return new ResponseEntity<>(updatedGoal, HttpStatus.OK);
@@ -56,7 +56,7 @@ public class GoalsController {
     }
 
     @DeleteMapping("/{goalId}")
-    public ResponseEntity<Void> deleteGoal(@PathVariable int goalId) {  // Updated method to use goalId
+    public ResponseEntity<Void> deleteGoal(@PathVariable int goalId) {
         try {
             goalsService.deleteGoalByGoalId(goalId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

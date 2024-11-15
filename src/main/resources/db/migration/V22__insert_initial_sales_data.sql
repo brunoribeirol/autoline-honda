@@ -1,6 +1,6 @@
 INSERT INTO Sales (employee_cpf, car_chassis, customer_cpf, final_price, sale_status, sale_date, discount)
 VALUES
--- Customer with Trade-In
+-- Clientes with Trade-In
 ('22233344455', '5HGCM82633A567890', '12345678901',
  calculate_final_price('12345678901', 210000.00), 'Completed', '2024-11-25',
  (SELECT value FROM TradeInCredit WHERE customer_cpf = '12345678901')),
@@ -21,7 +21,7 @@ VALUES
  calculate_final_price('78901234567', 220000.00), 'Completed', '2024-11-29',
  (SELECT value FROM TradeInCredit WHERE customer_cpf = '78901234567')),
 
--- Customers without Trade-In
+-- Clients without Trade-In
 ('99900011122', '6HGFA16589H987654', '89012345678',
  calculate_final_price('89012345678', 180000.00), 'Completed', '2024-12-01', 0.00),
 
@@ -37,7 +37,7 @@ VALUES
 ('11122233344', '9HGCM82633A890123', '55667788990',
  calculate_final_price('55667788990', 220000.00), 'Completed', '2024-12-05', 0.00),
 
--- Inserting additional sales to guarantee that all clients are being covered
+-- Additional sales
 ('33344455566', '1HGCM82633A004352', '33445566778',
  calculate_final_price('33445566778', 150000.00), 'Completed', '2024-12-06', 0.00),
 

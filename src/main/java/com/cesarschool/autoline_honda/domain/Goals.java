@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import lombok.*;
 
-@Data // Automatically generates getters, setters, toString, equals e hashCode
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 

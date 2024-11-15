@@ -49,6 +49,3 @@ mvnw.cmd
 # OS-specific files
 .DS_Store
 Thumbs.db
-
-# Application properties (if you don't want to track environment-specific configurations)
-src/main/resources/application.properties

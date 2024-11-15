@@ -30,7 +30,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 customer.getZipCode(), customer.getStreet(), customer.getCity());
     }
 
-
     @Override
     public int updateCustomer(Customer customer) {
         String sql = "UPDATE customer SET name = ?, driver_license = ?, birth_date = ?, neighborhood = ?, address_number = ?, state = ?, zip_code = ?, street = ?, city = ? WHERE cpf = ?";
@@ -62,7 +61,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         );
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, cpf));
     }
-
 
     @Override
     public List<Customer> findAllCustomers() {

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/sales")  // Define the base URL for all sales-related endpoints
+@RequestMapping("/sales")
 public class SalesController {
 
     private final SalesService salesService;
@@ -21,52 +21,52 @@ public class SalesController {
         this.salesService = salesService;
     }
 
-    // Endpoint to create a new sale
+
     @PostMapping
     public ResponseEntity<Sales> createSale(@RequestBody Sales sale) {
         try {
             Sales createdSale = salesService.createSale(sale);
-            return new ResponseEntity<>(createdSale, HttpStatus.CREATED);  // Return status 201
+            return new ResponseEntity<>(createdSale, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  // If something goes wrong
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    // Endpoint to get a sale by saleId
+
     @GetMapping("/{saleId}")
     public ResponseEntity<Sales> getSaleBySaleId(@PathVariable int saleId) {
         Optional<Sales> saleOptional = salesService.findSaleBySaleId(saleId);
         return saleOptional.map(sale -> new ResponseEntity<>(sale, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));  // Return 404 if not found
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to get all sales
+
     @GetMapping
     public ResponseEntity<List<Sales>> getAllSales() {
         List<Sales> sales = salesService.findAllSales();
-        return new ResponseEntity<>(sales, HttpStatus.OK);  // Return status 200
+        return new ResponseEntity<>(sales, HttpStatus.OK);
     }
 
-    // Endpoint to update a sale
+
     @PutMapping("/{saleId}")
     public ResponseEntity<Sales> updateSale(@PathVariable int saleId, @RequestBody Sales sale) {
-        sale.setSaleId(saleId);  // Ensure the saleId is set in the sale object
+        sale.setSaleId(saleId);
         try {
             Sales updatedSale = salesService.updateSale(sale);
-            return new ResponseEntity<>(updatedSale, HttpStatus.OK);  // Return status 200
+            return new ResponseEntity<>(updatedSale, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  // If something goes wrong
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    // Endpoint to delete a sale by saleId
+
     @DeleteMapping("/{saleId}")
     public ResponseEntity<Void> deleteSale(@PathVariable int saleId) {
         try {
             salesService.deleteSaleBySaleId(saleId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Return status 204 if deletion was successful
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Return 404 if not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
