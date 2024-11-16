@@ -1,10 +1,8 @@
 package com.cesarschool.autoline_honda.domain;
 
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
-
 
 @Data
 @AllArgsConstructor

@@ -21,7 +21,6 @@ public class SalesController {
         this.salesService = salesService;
     }
 
-
     @PostMapping
     public ResponseEntity<Sales> createSale(@RequestBody Sales sale) {
         try {
@@ -31,7 +30,6 @@ public class SalesController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @GetMapping("/{saleId}")
     public ResponseEntity<Sales> getSaleBySaleId(@PathVariable int saleId) {
