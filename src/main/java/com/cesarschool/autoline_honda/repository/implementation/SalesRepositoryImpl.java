@@ -24,9 +24,9 @@ public class SalesRepositoryImpl implements SalesRepository {
 
     @Override
     public int saveSale(Sales sale) {
-        String sql = "INSERT INTO sales (employee_cpf, car_chassis, customer_cpf, final_price, sale_status, sale_date, discount) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO sales (employee_cpf, car_chassis, customer_cpf, final_price, sale_status, sale_date) VALUES (?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, sale.getEmployeeCpf(), sale.getCarChassis(), sale.getCustomerCpf(),
-                sale.getFinalPrice(), sale.getSaleStatus(), sale.getSaleDate(), sale.getDiscount());
+                sale.getFinalPrice(), sale.getSaleStatus(), sale.getSaleDate());
     }
 
     @Override
