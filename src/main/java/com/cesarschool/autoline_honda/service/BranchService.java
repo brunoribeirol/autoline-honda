@@ -18,7 +18,6 @@ public class BranchService {
         this.branchRepository = branchRepository;
     }
 
-    // Create a new branch
     public Branch createBranch(Branch branch) {
         int rowsAffected = branchRepository.saveBranch(branch);
         if (rowsAffected == 1) {
@@ -28,7 +27,6 @@ public class BranchService {
         }
     }
 
-    // Update an existing branch
     public Branch updateBranch(Branch branch) {
         int rowsAffected = branchRepository.updateBranch(branch);
         if (rowsAffected == 1) {
@@ -38,7 +36,6 @@ public class BranchService {
         }
     }
 
-    // Delete a branch by CNPJ
     public void deleteBranchByCnpj(String cnpj) {
         int rowsAffected = branchRepository.deleteBranchByCnpj(cnpj);
         if (rowsAffected != 1) {
@@ -46,12 +43,10 @@ public class BranchService {
         }
     }
 
-    // Find a branch by CNPJ
     public Optional<Branch> findBranchByCnpj(String cnpj) {
         return branchRepository.findBranchByCnpj(cnpj);
     }
 
-    // Find all branches
     public List<Branch> findAllBranches() {
         return branchRepository.findAllBranches();
     }

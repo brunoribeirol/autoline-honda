@@ -38,13 +38,11 @@ public class SalesController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
     @GetMapping
     public ResponseEntity<List<Sales>> getAllSales() {
         List<Sales> sales = salesService.findAllSales();
         return new ResponseEntity<>(sales, HttpStatus.OK);
     }
-
 
     @PutMapping("/{saleId}")
     public ResponseEntity<Sales> updateSale(@PathVariable int saleId, @RequestBody Sales sale) {
@@ -56,7 +54,6 @@ public class SalesController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @DeleteMapping("/{saleId}")
     public ResponseEntity<Void> deleteSale(@PathVariable int saleId) {
