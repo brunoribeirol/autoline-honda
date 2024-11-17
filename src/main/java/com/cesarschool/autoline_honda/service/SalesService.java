@@ -22,7 +22,6 @@ public class SalesService {
     }
 
     public Sales createSale(Sales sale) {
-        // Calcula o finalPrice e o discount automaticamente antes de salvar
         float calculatedPrice = calculateFinalPrice(sale.getCustomerCpf(), sale.getCarChassis());
         float discount = calculateDiscount(sale.getCustomerCpf());
 
@@ -34,7 +33,6 @@ public class SalesService {
     }
 
     public Sales updateSale(Sales sale) {
-        // Primeiro, busque a venda existente
         Optional<Sales> existingSaleOpt = salesRepository.findSaleBySaleId(sale.getSaleId());
 
         if (existingSaleOpt.isEmpty()) {
@@ -43,7 +41,6 @@ public class SalesService {
 
         Sales existingSale = existingSaleOpt.get();
 
-        // Atualize apenas os campos não nulos
         if (sale.getCarChassis() != null) {
             existingSale.setCarChassis(sale.getCarChassis());
         }
@@ -51,7 +48,6 @@ public class SalesService {
             existingSale.setSaleStatus(sale.getSaleStatus());
         }
 
-        // Recalcule o preço final e o desconto, se necessário
         float calculatedPrice = calculateFinalPrice(existingSale.getCustomerCpf(), existingSale.getCarChassis());
         float discount = calculateDiscount(existingSale.getCustomerCpf());
 
@@ -75,9 +71,7 @@ public class SalesService {
         return salesRepository.findAllSales();
     }
 
-    // Função para calcular o preço final do carro considerando o desconto
     private float calculateFinalPrice(String customerCpf, String carChassis) {
-        // Obtém o preço do carro
         String carPriceQuery = "SELECT price FROM Car WHERE chassis = ?";
         Float carPrice = jdbcTemplate.queryForObject(carPriceQuery, Float.class, carChassis);
 
@@ -85,12 +79,10 @@ public class SalesService {
             throw new RuntimeException("Car not found");
         }
 
-        // Calcula o desconto usando a função
         float discount = calculateDiscount(customerCpf);
         return carPrice - discount;
     }
 
-    // Função para calcular o desconto baseado no TradeInCredit
     private float calculateDiscount(String customerCpf) {
         String creditQuery = "SELECT value FROM TradeInCredit WHERE customer_cpf = ?";
         Float tradeInValue = jdbcTemplate.queryForObject(creditQuery, Float.class, customerCpf);

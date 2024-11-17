@@ -18,7 +18,6 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    // Create a new address
     public Address createAddress(Address address) {
         int rowsAffected = addressRepository.saveAddress(address);
         if (rowsAffected == 1) {
@@ -28,7 +27,6 @@ public class AddressService {
         }
     }
 
-    // Update an existing address
     public Address updateAddress(Address address) {
         int rowsAffected = addressRepository.updateAddress(address);
         if (rowsAffected == 1) {
@@ -38,7 +36,6 @@ public class AddressService {
         }
     }
 
-    // Delete an address by its primary key
     public void deleteAddressByBranchCnpj(String branchCnpj) {
         int rowsAffected = addressRepository.deleteAddressByBranchCnpj(branchCnpj);
         if (rowsAffected != 1) {
@@ -46,12 +43,10 @@ public class AddressService {
         }
     }
 
-    // Find an address by its primary key
     public Optional<Address> findAddressByBranchCnpj(String branchCnpj) {
         return addressRepository.findAddressByBranchCnpj(branchCnpj);
     }
 
-    // Find all addresses
     public List<Address> findAllAddresses() {
         return addressRepository.findAllAddresses();
     }

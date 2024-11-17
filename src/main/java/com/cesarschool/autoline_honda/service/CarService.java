@@ -16,49 +16,30 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-//    // Create a new car
-//    public Car createCar(Car car) {
-//        carRepository.saveCar(car);
-//        return car;
-//    }
-//
-//    // Update an existing car
-//    public Car updateCar(Car car) {
-//        if (carRepository.updateCar(car) > 0) {
-//            return car;
-//        }
-//        throw new RuntimeException("Failed to update the car");
-//    }
 
-    // Create a new car
     public Car createCar(Car car) {
         carRepository.saveCar(car);
         // carCondition is automatically determined by the database based on mileage
         return findCarByChassis(car.getChassis()).orElse(car); // Retrieve to include carCondition
     }
 
-    // Update an existing car
     public Car updateCar(Car car) {
         if (carRepository.updateCar(car) > 0) {
-            // carCondition will be updated based on the mileage in the database
-            return findCarByChassis(car.getChassis()).orElse(car); // Retrieve to include carCondition
+            return findCarByChassis(car.getChassis()).orElse(car);
         }
         throw new RuntimeException("Failed to update the car");
     }
 
-    // Delete a car by chassis
     public void deleteCar(String chassis) {
         if (carRepository.deleteCarByChassis(chassis) == 0) {
             throw new RuntimeException("Failed to delete the car with chassis: " + chassis);
         }
     }
 
-    // Find a car by chassis
     public Optional<Car> findCarByChassis(String chassis) {
         return carRepository.findCarByChassis(chassis);
     }
 
-    // Find all cars
     public List<Car> findAllCars() {
         return carRepository.findAllCars();
     }

@@ -18,7 +18,6 @@ public class GoalsService {
         this.goalsRepository = goalsRepository;
     }
 
-    // Create a new goal
     public Goals createGoal(Goals goal) {
         int rowsAffected = goalsRepository.saveGoal(goal);
         if (rowsAffected == 1) {
@@ -28,7 +27,6 @@ public class GoalsService {
         }
     }
 
-    // Update an existing goal
     public Goals updateGoal(Goals goalId) {
         int rowsAffected = goalsRepository.updateGoal(goalId);
         if (rowsAffected == 1) {
@@ -38,7 +36,6 @@ public class GoalsService {
         }
     }
 
-    // Delete a goal by its id
     public void deleteGoalByGoalId(int goalId) {
         int rowsAffected = goalsRepository.deleteGoalByGoalId(goalId);
         if (rowsAffected != 1) {
@@ -46,12 +43,10 @@ public class GoalsService {
         }
     }
 
-    // Find a goal by its id
     public Optional<Goals> findGoalByGoalId(int goalId) {
         return goalsRepository.findGoalByGoalId(goalId);
     }
 
-    // Find all goals
     public List<Goals> findAllGoals() {
         return goalsRepository.findAllGoals();
     }
