@@ -4,6 +4,7 @@ import com.cesarschool.autoline_honda.domain.Branch;
 import com.cesarschool.autoline_honda.repository.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,21 @@ public class BranchService {
     private final BranchRepository branchRepository;
 
     @Autowired
-    public BranchService(BranchRepository branchRepository) {
+    public BranchService(BranchRepository branchRepository, AddressRepository addressRepository) {
         this.branchRepository = branchRepository;
+    }
+
+    // Adiiconado esee @Transactional
+    @Transactional
+    public void createBranchWithAddress(Branch branch, Address address) {
+        // Save the branch
+        branchRepository.saveBranch(branch);
+
+        // Set the branch CNPJ in the address
+        address.setBranchCnpj(branch.getCnpj());
+
+        // Save the address
+        addressRepository.saveAddress(address);
     }
 
     public Branch createBranch(Branch branch) {
