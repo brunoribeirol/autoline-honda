@@ -29,7 +29,10 @@ public class EmployeesService {
     }
 
     public void deleteEmployeeByCpf(String cpf) {
-        employeesRepository.deleteEmployeeByCpf(cpf);
+        int rowsAffected =employeesRepository.deleteEmployeeByCpf(cpf);
+        if (rowsAffected != 1) {
+            throw new RuntimeException("Failed to delete employee with CPF: " + cpf);
+        }
     }
 
     public Optional<Employees> findEmployeeByCpf(String cpf) {

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/goals")
+@RequestMapping("/goals/{cnpj}")
 public class GoalsController {
 
     private final GoalsService goalsService;
@@ -21,9 +22,10 @@ public class GoalsController {
         this.goalsService = goalsService;
     }
 
-    @PostMapping
-    public ResponseEntity<Goals> createGoal(@RequestBody Goals goal) {
+    @PostMapping("/add")
+    public ResponseEntity<Goals> createGoal(@PathVariable String cnpj, @RequestBody Goals goal) {
         try {
+            goal.setBranchCnpj(cnpj);
             Goals createdGoal = goalsService.createGoal(goal);
             return new ResponseEntity<>(createdGoal, HttpStatus.CREATED);
         } catch (RuntimeException e) {
@@ -56,7 +58,7 @@ public class GoalsController {
     }
 
     @DeleteMapping("/{goalId}")
-    public ResponseEntity<Void> deleteGoal(@PathVariable int goalId) {
+    public ResponseEntity<Void> deleteGoal(@PathVariable int goalId, @PathVariable String cnpj) {
         try {
             goalsService.deleteGoalByGoalId(goalId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

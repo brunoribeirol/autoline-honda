@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employees/{cnpj}")
 public class EmployeesController {
 
     private final EmployeesService employeesService;
@@ -21,9 +21,10 @@ public class EmployeesController {
         this.employeesService = employeesService;
     }
 
-    @PostMapping
-    public ResponseEntity<Employees> createEmployee(@RequestBody Employees employee) {
+    @PostMapping("/add")
+    public ResponseEntity<Employees> createEmployee(@PathVariable String cnpj, @RequestBody Employees employee) {
         try {
+            employee.setBranchCnpj(cnpj);
             Employees createdEmployee = employeesService.createEmployee(employee);
             return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
         } catch (RuntimeException e) {
@@ -44,10 +45,11 @@ public class EmployeesController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @PutMapping("/{cpf}")
+    @PutMapping("/{cpf}/edit")
     public ResponseEntity<Employees> updateEmployee(@PathVariable String cpf, @RequestBody Employees employee) {
         employee.setCpf(cpf);
         try {
+            //employee.setEmployeeCnpj(cnpj);
             Employees updatedEmployee = employeesService.updateEmployee(employee);
             return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
         } catch (RuntimeException e) {
@@ -56,7 +58,7 @@ public class EmployeesController {
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable String cpf) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable String cpf, @PathVariable String cnpj) {
         try {
             employeesService.deleteEmployeeByCpf(cpf);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

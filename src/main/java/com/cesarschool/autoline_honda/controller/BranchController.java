@@ -47,29 +47,6 @@ public class BranchController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Branch and Address created successfully");
     }
-
-//@CrossOrigin("*")
-//@RestController
-//@RequestMapping("/branches")
-//public class BranchController {
-//
-//    private final BranchService branchService;
-//
-//    @Autowired
-//    public BranchController(BranchService branchService) {
-//        this.branchService = branchService;
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<Branch> createBranch(@RequestBody Branch branch) {
-//        try {
-//            Branch createdBranch = branchService.createBranch(branch);
-//            return new ResponseEntity<>(createdBranch, HttpStatus.CREATED);
-//        } catch (RuntimeException e) {
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @GetMapping("/{cnpj}")
     public ResponseEntity<Branch> getBranchByCnpj(@PathVariable String cnpj) {
         Optional<Branch> branchOptional = branchService.findBranchByCnpj(cnpj);
@@ -84,13 +61,42 @@ public class BranchController {
     }
 
     @PutMapping("/{cnpj}")
-    public ResponseEntity<Branch> updateBranch(@PathVariable String cnpj, @RequestBody Branch branch) {
-        branch.setCnpj(cnpj);
+//    public ResponseEntity<Branch> updateBranch(@PathVariable String cnpj, @RequestBody Branch branch) {
+//        branch.setCnpj(cnpj);
+//        try {
+//            Branch updatedBranch = branchService.updateBranch(branch);
+//            return new ResponseEntity<>(updatedBranch, HttpStatus.OK);
+//        } catch (RuntimeException e) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//    }
+
+    public ResponseEntity<String> updateBranchWithAddress(
+            @PathVariable String cnpj,
+            @RequestBody Map<String, Object> request) {
         try {
-            Branch updatedBranch = branchService.updateBranch(branch);
-            return new ResponseEntity<>(updatedBranch, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            // Extrair dados da branch do request
+            Branch branch = new Branch();
+            branch.setCnpj(cnpj);
+            branch.setName((String) request.get("name"));
+
+            // Extrair dados do endereço do request
+            Address address = new Address();
+            address.setZipCode((String) request.get("zipCode"));
+            address.setStreet((String) request.get("street"));
+            address.setAddressNumber((Integer) request.get("addressNumber"));
+            address.setNeighborhood((String) request.get("neighborhood"));
+            address.setCity((String) request.get("city"));
+            address.setState((String) request.get("state"));
+            address.setBranchCnpj(cnpj); // Associar endereço à branch
+
+            // Chamar o serviço para atualizar branch e endereço
+            branchService.updateBranchWithAddress(branch, address);
+
+            return ResponseEntity.ok("Branch and Address updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error updating branch and address: " + e.getMessage());
         }
     }
 

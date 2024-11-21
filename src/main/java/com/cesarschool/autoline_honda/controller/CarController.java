@@ -1,6 +1,7 @@
 package com.cesarschool.autoline_honda.controller;
 
 import com.cesarschool.autoline_honda.domain.Car;
+import com.cesarschool.autoline_honda.domain.Specification;
 import com.cesarschool.autoline_honda.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/cars")
 public class CarController {
@@ -21,15 +24,41 @@ public class CarController {
         this.carService = carService;
     }
 
-    @PostMapping
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
-        try {
-            Car createdCar = carService.createCar(car);
-            return new ResponseEntity<>(createdCar, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping("/create-with-specification")
+    public ResponseEntity<String> createCarWithSpecification(@RequestBody Map<String, Object> request)
+    {
+        Car car = new Car();
+        car.setChassis((String) request.get("chassis"));
+        car.setPrice((Float) request.get("price"));
+        car.setColor((String) request.get("color"));
+        car.setWheelSize((Integer) request.get("wheelSize"));
+        car.setFuelType((String) request.get("fuelType"));
+        car.setYear((Integer) request.get("year"));
+        car.setEngine((String) request.get("engine"));
+        car.setTransmission((String) request.get("transmission"));
+        car.setMileage((Integer) request.get("mileage"));
+        car.setCarCondition((String) request.get("carCondition"));
+
+        Specification specification = new Specification();
+        specification.setCategory((String) request.get("category"));
+        specification.setModel((String) request.get("model"));
+        specification.setVersion((String) request.get("version"));
+
+        carService.createCarWithSpecification(car, specification);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Car and Specification created successfully");
+
     }
+
+//    @PostMapping
+//    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+//        try {
+//            Car createdCar = carService.createCar(car);
+//            return new ResponseEntity<>(createdCar, HttpStatus.CREATED);
+//        } catch (RuntimeException e) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @GetMapping("/{chassis}")
     public ResponseEntity<Car> getCarByChassis(@PathVariable String chassis) {

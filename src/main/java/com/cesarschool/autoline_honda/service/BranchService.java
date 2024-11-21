@@ -1,6 +1,8 @@
 package com.cesarschool.autoline_honda.service;
 
+import com.cesarschool.autoline_honda.domain.Address;
 import com.cesarschool.autoline_honda.domain.Branch;
+import com.cesarschool.autoline_honda.repository.AddressRepository;
 import com.cesarschool.autoline_honda.repository.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,15 @@ import java.util.Optional;
 public class BranchService {
 
     private final BranchRepository branchRepository;
+    private final AddressRepository addressRepository;
 
     @Autowired
     public BranchService(BranchRepository branchRepository, AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
         this.branchRepository = branchRepository;
     }
 
-    // Adiiconado esee @Transactional
+    // Adiiconado esese @Transactional
     @Transactional
     public void createBranchWithAddress(Branch branch, Address address) {
         // Save the branch
@@ -47,6 +51,20 @@ public class BranchService {
             return branch;
         } else {
             throw new RuntimeException("Failed to update branch with CNPJ: " + branch.getCnpj());
+        }
+    }
+
+    @Transactional
+    public void updateBranchWithAddress(Branch branch, Address address) {
+        int branchRowsAffected = branchRepository.updateBranch(branch);
+        if (branchRowsAffected != 1) {
+            throw new RuntimeException("Failed to update branch with CNPJ: " + branch.getCnpj());
+        }
+
+        address.setBranchCnpj(branch.getCnpj());
+        int addressRowsAffected = addressRepository.updateAddress(address);
+        if (addressRowsAffected != 1) {
+            throw new RuntimeException("Failed to update address for branch with CNPJ: " + branch.getCnpj());
         }
     }
 

@@ -10,5 +10,5 @@ CREATE TABLE Employees
     CONSTRAINT fk_Employees_Supervisor FOREIGN KEY (supervisor_cpf)
         REFERENCES Employees (cpf) ON DELETE SET NULL,
     CONSTRAINT fk_Employees_Branch FOREIGN KEY (branch_cnpj)
-        REFERENCES Branch (cnpj) ON DELETE RESTRICT
+        REFERENCES Branch (cnpj) ON DELETE CASCADE
 );

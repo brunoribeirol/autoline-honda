@@ -1,8 +1,12 @@
 package com.cesarschool.autoline_honda.service;
 
 import com.cesarschool.autoline_honda.domain.Car;
+import com.cesarschool.autoline_honda.domain.Specification;
 import com.cesarschool.autoline_honda.repository.CarRepository;
+import com.cesarschool.autoline_honda.repository.SpecificationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +15,21 @@ import java.util.Optional;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final SpecificationRepository specificationRepository;
 
-    public CarService(CarRepository carRepository) {
+    @Autowired
+    public CarService(CarRepository carRepository, SpecificationRepository specificationRepository) {
+        this.specificationRepository = specificationRepository;
         this.carRepository = carRepository;
+    }
+
+    @Transactional
+    public void createCarWithSpecification(Car car, Specification specification) {
+        carRepository.saveCar(car);
+
+        specification.setCarChassis(car.getChassis());
+
+        specificationRepository.saveSpecification(specification);
     }
 
 
