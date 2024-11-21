@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DashboardSummary {
+
     private List<EmployeeSalesSummary> salesByEmployee;
     private List<MonthlySalesSummary> monthlySales;
     private List<ClientTradeInCredit> clientsWithTradeInCredit;
@@ -21,13 +22,12 @@ public class DashboardSummary {
     private ClientHighestSale highestSaleCustomer;
     private List<SalesByBranch> salesByBranch;
     private List<DiscountedSales> discountedSales;
-    private EmployeeSummary totalEmployees;
+    private EmployeeSummary employeeSummary;
     private List<CustomerPhones> customersWithMultiplePhones;
     private List<BranchGoals> branchGoals;
     private MostSoldCar mostSoldCar;
     private List<SalesByDateRange> salesInDateRange;
 
-    // Subclasses para os dados retornados
     @Getter
     @Setter
     @NoArgsConstructor
