@@ -25,6 +25,7 @@ public class CustomerPhoneRepositoryImpl implements CustomerPhoneRepository {
         return jdbcTemplate.update(sql, customerPhone.getCustomerCpf(), customerPhone.getPhoneNumber());
     }
 
+
     @Override
     public List<CustomerPhone> findPhonesByCustomerCpf(String cpf) {
         String sql = "SELECT * FROM CustomerPhone WHERE customer_cpf = ?";
@@ -40,4 +41,12 @@ public class CustomerPhoneRepositoryImpl implements CustomerPhoneRepository {
         String sql = "DELETE FROM CustomerPhone WHERE customer_cpf = ?";
         return jdbcTemplate.update(sql, cpf);
     }
+
+    public void addPhonesForCustomer(String customerCpf, List<CustomerPhone> phones) {
+        phones.forEach(phone -> {
+            phone.setCustomerCpf(customerCpf);
+            saveCustomerPhone(phone);
+        });
+    }
+
 }

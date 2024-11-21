@@ -25,15 +25,15 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        try {
-            Customer createdCustomer = customerService.createCustomer(customer);
-            return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+//        try {
+//            Customer createdCustomer = customerService.createCustomer(customer);
+//            return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
+//        } catch (RuntimeException e) {
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 //    @PostMapping("/add")
 //    public ResponseEntity<String> createCustomerWithPhone(
@@ -100,9 +100,8 @@ public class CustomerController {
             customer.setStreet((String) request.get("street"));
             customer.setCity((String) request.get("city"));
 
-            // Converte telefones em uma lista de objetos
-            List<CustomerPhone> phones = ((List<Map<String, String>>) request.get("phones"))
-                    .stream()
+            // Converte telefones em uma lista de objeto
+            List<CustomerPhone> phones = ((List<Map<String, String>>) request.get("phones")).stream()
                     .map(phoneData -> new CustomerPhone(customer.getCpf(), phoneData.get("phoneNumber")))
                     .toList();
 
@@ -113,7 +112,7 @@ public class CustomerController {
         }
     }
 
-    @PutMapping("/{cpf}")
+    @PutMapping("/{cpf}/edit")
         public ResponseEntity<Customer> updateCustomer(@PathVariable String cpf, @RequestBody Customer customer) {
             try {
                 customer.setCpf(cpf);

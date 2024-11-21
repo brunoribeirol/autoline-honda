@@ -23,21 +23,6 @@ public class CustomerService {
         this.customerPhoneRepository = customerPhoneRepository;
     }
 
-//    @Transactional
-//    public void createCustomerWithPhone(Customer customer, CustomerPhone customerPhone) {
-//        customerRepository.saveCustomer(customer);
-//        customerPhone.setCustomerCpf(customer.getCpf());
-////        customerPhone.setPhoneNumber(customerPhone.getPhoneNumber());
-//        customerPhoneRepository.saveCustomerPhone(customerPhone);
-//    }
-//    @Transactional
-//    public void createCustomerWithPhone(Customer customer, List<CustomerPhone> phones) {
-//        customerRepository.saveCustomer(customer);
-//        phones.forEach(phone -> {
-//            phone.setCustomerCpf(customer.getCpf());
-//            customerPhoneRepository.saveCustomerPhone(phone);
-//        });
-//    }
     @Transactional
     public void createCustomerWithPhone(Customer customer, List<CustomerPhone> phones) {
         customerRepository.saveCustomer(customer);
@@ -46,8 +31,6 @@ public class CustomerService {
             customerPhoneRepository.saveCustomerPhone(phone);
         });
     }
-
-
 
     public Customer createCustomer(Customer customer) {
         customerRepository.saveCustomer(customer);

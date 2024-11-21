@@ -1,6 +1,7 @@
 package com.cesarschool.autoline_honda.repository.implementation;
 
 import com.cesarschool.autoline_honda.domain.Customer;
+import com.cesarschool.autoline_honda.domain.CustomerPhone;
 import com.cesarschool.autoline_honda.domain.Goals;
 import com.cesarschool.autoline_honda.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public int saveCustomer(Customer customer) {
-//        String sql = "INSERT INTO customer (cpf, name, driver_license, birth_date, neighborhood, address_number, state, zip_code, street, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql = "INSERT INTO customer (cpf, name, driver_license, birth_date, neighborhood, address_number, state, zip_code, street, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(sql, customer.getCpf(), customer.getName(), customer.getDriverLicense(),
@@ -47,6 +47,63 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return jdbcTemplate.update(sql, cpf);
     }
 
+    @Override
+    public Optional<Customer> findCustomerByCpf(String cpf) {
+        String sql = "SELECT * FROM customer WHERE cpf = ?";
+        try {
+            Customer customer = jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new Customer(
+                    rs.getString("cpf"),
+                    rs.getString("name"),
+                    rs.getString("driver_license"),
+                    rs.getDate("birth_date"),
+                    rs.getString("neighborhood"),
+                    rs.getInt("address_number"),
+                    rs.getString("state"),
+                    rs.getString("zip_code"),
+                    rs.getString("street"),
+                    rs.getString("city")
+            ), cpf);
+            return Optional.ofNullable(customer);
+        } catch (DataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<Customer> findAllCustomers() {
+        String sql = """
+            SELECT c.cpf, c.name, c.driver_license, c.birth_date, c.neighborhood, c.address_number, c.state, c.zip_code, c.street, c.city, cp.phone_number
+            FROM Customer c
+            LEFT JOIN CustomerPhone cp ON cp.customer_cpf = c.cpf
+        """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            // Cria o cliente
+            Customer customer = new Customer(
+                    rs.getString("cpf"),
+                    rs.getString("name"),
+                    rs.getString("driver_license"),
+                    rs.getDate("birth_date"),
+                    rs.getString("neighborhood"),
+                    rs.getInt("address_number"),
+                    rs.getString("state"),
+                    rs.getString("zip_code"),
+                    rs.getString("street"),
+                    rs.getString("city")
+            );
+
+            // Mapeia o telefone (se existir)
+            String phoneNumber = rs.getString("phone_number");
+            if (phoneNumber != null) {
+                customer.setPhones(List.of(new CustomerPhone(rs.getString("cpf"), phoneNumber)));
+            }
+
+            return customer;
+        });
+    }
+
+
+}
 //    @Override
 //    public Optional<Customer> findCustomerByCpf(String cpf) {
 //        String sql = """
@@ -123,45 +180,36 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 //        );
 //        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, cpf));
 //    }
-
-    @Override
-    public Optional<Customer> findCustomerByCpf(String cpf) {
-        String sql = "SELECT * FROM customer WHERE cpf = ?";
-        try {
-            Customer customer = jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new Customer(
-                    rs.getString("cpf"),
-                    rs.getString("name"),
-                    rs.getString("driver_license"),
-                    rs.getDate("birth_date"),
-                    rs.getString("neighborhood"),
-                    rs.getInt("address_number"),
-                    rs.getString("state"),
-                    rs.getString("zip_code"),
-                    rs.getString("street"),
-                    rs.getString("city")
-            ), cpf);
-            return Optional.ofNullable(customer);
-        } catch (DataAccessException e) {
-            return Optional.empty();
-        }
-    }
-
-
-    @Override
-    public List<Customer> findAllCustomers() {
-        String sql = "SELECT * FROM customer";
-        RowMapper<Customer> rowMapper = (rs, rowNum) -> new Customer(
-                rs.getString("cpf"),
-                rs.getString("name"),
-                rs.getString("driver_license"),
-                rs.getDate("birth_date"),
-                rs.getString("neighborhood"),
-                rs.getInt("address_number"),
-                rs.getString("state"),
-                rs.getString("zip_code"),
-                rs.getString("street"),
-                rs.getString("city")
-        );
-        return jdbcTemplate.query(sql, rowMapper);
-    }
-}
+//    @Override
+//    public List<Customer> findAllCustomers() {
+//        String sql = """
+//        SELECT  c.cpf, c.name, c.driver_license, c.birth_date, c.neighborhood, c.address_number, c.state, c.zip_code, c.street, c.city, cp.phone_number
+//        FROM Customer c
+//        LEFT JOIN CustomerPhone cp ON cp.customer_cpf = c.cpf
+//    """;
+//
+//        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+//            Customer customer = new Customer(
+//                    rs.getString("cpf"),
+//                    rs.getString("name"),
+//                    rs.getString("driver_license"),
+//                    rs.getDate("birth_date"),
+//                    rs.getString("neighborhood"),
+//                    rs.getInt("address_number"),
+//                    rs.getString("state"),
+//                    rs.getString("zip_code"),
+//                    rs.getString("street"),
+//                    rs.getString("city")
+//            );
+//
+//            CustomerPhone customerPhone = new CustomerPhone(
+//                    rs.getString("phone_number"),
+//                    customer.getCpf()
+//            );
+//
+//            customer.setCustomerPhone(customerPhone);
+//
+//            return customer;
+//
+//        });
+//    }
