@@ -23,13 +23,31 @@ public class CustomerService {
         this.customerPhoneRepository = customerPhoneRepository;
     }
 
+//    @Transactional
+//    public void createCustomerWithPhone(Customer customer, CustomerPhone customerPhone) {
+//        customerRepository.saveCustomer(customer);
+//        customerPhone.setCustomerCpf(customer.getCpf());
+////        customerPhone.setPhoneNumber(customerPhone.getPhoneNumber());
+//        customerPhoneRepository.saveCustomerPhone(customerPhone);
+//    }
+//    @Transactional
+//    public void createCustomerWithPhone(Customer customer, List<CustomerPhone> phones) {
+//        customerRepository.saveCustomer(customer);
+//        phones.forEach(phone -> {
+//            phone.setCustomerCpf(customer.getCpf());
+//            customerPhoneRepository.saveCustomerPhone(phone);
+//        });
+//    }
     @Transactional
-    public void createCustumerWithPhone(Customer customer, CustomerPhone customerPhone) {
+    public void createCustomerWithPhone(Customer customer, List<CustomerPhone> phones) {
         customerRepository.saveCustomer(customer);
-        customerPhone.setCustomerCpf(customer.getCpf());
-//        customerPhone.setPhoneNumber(customerPhone.getPhoneNumber());
-        customerPhoneRepository.saveCustomerPhone(customerPhone);
+        phones.forEach(phone -> {
+            phone.setCustomerCpf(customer.getCpf());
+            customerPhoneRepository.saveCustomerPhone(phone);
+        });
     }
+
+
 
     public Customer createCustomer(Customer customer) {
         customerRepository.saveCustomer(customer);
@@ -45,6 +63,19 @@ public class CustomerService {
         customerRepository.deleteCustomerByCpf(cpf);
     }
 
+    private void savePhonesForCustomer(String cpf, List<CustomerPhone> phones) {
+        phones.forEach(phone -> {
+            phone.setCustomerCpf(cpf);
+            customerPhoneRepository.saveCustomerPhone(phone);
+        });
+    }
+
+//    public Optional<Customer> getCustomerWithPhones(String cpf) {
+//        Optional<Customer> customer = customerRepository.findCustomerByCpf(cpf);
+//        customer.ifPresent(c -> c.setPhones(customerPhoneRepository.findPhonesByCustomerCpf(cpf)));
+//        return customer;
+//    }
+
     public Optional<Customer> getCustomerByCpf(String cpf) {
         return customerRepository.findCustomerByCpf(cpf);
     }
@@ -52,4 +83,13 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return customerRepository.findAllCustomers();
     }
+
+    public List<Customer> getAllCustomersWithPhones() {
+        List<Customer> customers = customerRepository.findAllCustomers();
+        customers.forEach(customer ->
+                customer.setPhones(customerPhoneRepository.findPhonesByCustomerCpf(customer.getCpf()))
+        );
+        return customers;
+    }
+
 }

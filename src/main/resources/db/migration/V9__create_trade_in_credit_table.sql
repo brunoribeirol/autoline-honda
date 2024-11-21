@@ -8,5 +8,5 @@ CREATE TABLE TradeInCredit
     CONSTRAINT fk_TradeInCredit_Customer FOREIGN KEY (customer_cpf)
         REFERENCES Customer (cpf),
     CONSTRAINT fk_TradeInCredit_UsedCar FOREIGN KEY (used_car_chassis)
-        REFERENCES Car (chassis)
+        REFERENCES Car (chassis) ON DELETE CASCADE
 );

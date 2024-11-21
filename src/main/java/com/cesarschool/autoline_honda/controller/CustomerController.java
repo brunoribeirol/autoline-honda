@@ -35,31 +35,85 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> createCustomerWithPhone(
-            @RequestBody Map<String, Object> request) {
+//    @PostMapping("/add")
+//    public ResponseEntity<String> createCustomerWithPhone(
+//            @RequestBody Map<String, Object> request) {
+//
+//            Customer customer = new Customer();
+//            customer.setCpf((String) request.get("cpf"));
+//            customer.setName((String) request.get("name"));
+//            customer.setDriverLicense((String) request.get("driverLicense"));
+//            customer.setBirthDate((Date) request.get("birthDate"));
+//            customer.setNeighborhood((String) request.get("neighborhood"));
+//            customer.setAddressNumber((Integer) request.get("addressNumber"));
+//            customer.setState((String) request.get("state"));
+//            customer.setZipCode((String) request.get("zipCode"));
+//            customer.setStreet((String) request.get("street"));
+//            customer.setCity((String) request.get("city"));
+//
+//            CustomerPhone customerPhone = new CustomerPhone();
+//            customerPhone.setPhoneNumber((String) request.get("phoneNumber"));
+//
+//            customerService.createCustumerWithPhone(customer, customerPhone);
+//
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Customer and CustomerPhone created successfully");
+//    }
+//    @PostMapping("/add")
+//    public ResponseEntity<String> createCustomerWithPhones(@RequestBody Map<String, Object> request) {
+//        try {
+//            Customer customer = new Customer();
+//            customer.setCpf((String) request.get("cpf"));
+//            customer.setName((String) request.get("name"));
+//            customer.setDriverLicense((String) request.get("driverLicense"));
+//            customer.setBirthDate(Date.valueOf((String) request.get("birthDate"))); // Converter para Date
+//            customer.setNeighborhood((String) request.get("neighborhood"));
+//            customer.setAddressNumber((Integer) request.get("addressNumber"));
+//            customer.setState((String) request.get("state"));
+//            customer.setZipCode((String) request.get("zipCode"));
+//            customer.setStreet((String) request.get("street"));
+//            customer.setCity((String) request.get("city"));
+//
+//            // Processar lista de telefones
+//            List<CustomerPhone> phones = ((List<Map<String, String>>) request.get("phones")).stream()
+//                    .map(phoneData -> new CustomerPhone(customer.getCpf(), phoneData.get("phoneNumber")))
+//                    .toList();
+//
+//            customerService.createCustomerWithPhone(customer, phones);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Customer and phones created successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating customer: " + e.getMessage());
+//        }
+//    }
 
+    @PostMapping("/add")
+    public ResponseEntity<String> createCustomerWithPhones(@RequestBody Map<String, Object> request) {
+        try {
             Customer customer = new Customer();
             customer.setCpf((String) request.get("cpf"));
             customer.setName((String) request.get("name"));
             customer.setDriverLicense((String) request.get("driverLicense"));
-            customer.setBirthDate((Date) request.get("birthDate"));
+            customer.setBirthDate(Date.valueOf((String) request.get("birthDate"))); // Converte string para Date
             customer.setNeighborhood((String) request.get("neighborhood"));
-            customer.setAddressNumber((Integer) request.get("addressNumber"));
+            customer.setAddressNumber(Integer.parseInt(request.get("addressNumber").toString())); // Corrige Inteiros
             customer.setState((String) request.get("state"));
             customer.setZipCode((String) request.get("zipCode"));
             customer.setStreet((String) request.get("street"));
             customer.setCity((String) request.get("city"));
 
-            CustomerPhone customerPhone = new CustomerPhone();
-            customerPhone.setPhoneNumber((String) request.get("phoneNumber"));
+            // Converte telefones em uma lista de objetos
+            List<CustomerPhone> phones = ((List<Map<String, String>>) request.get("phones"))
+                    .stream()
+                    .map(phoneData -> new CustomerPhone(customer.getCpf(), phoneData.get("phoneNumber")))
+                    .toList();
 
-            customerService.createCustumerWithPhone(customer, customerPhone);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body("Customer and CustomerPhone created successfully");
+            customerService.createCustomerWithPhone(customer, phones);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Customer and phones created successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating customer: " + e.getMessage());
+        }
     }
 
-        @PutMapping("/{cpf}")
+    @PutMapping("/{cpf}")
         public ResponseEntity<Customer> updateCustomer(@PathVariable String cpf, @RequestBody Customer customer) {
             try {
                 customer.setCpf(cpf);

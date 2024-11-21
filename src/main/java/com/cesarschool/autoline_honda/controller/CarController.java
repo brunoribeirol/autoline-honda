@@ -25,40 +25,39 @@ public class CarController {
     }
 
     @PostMapping("/create-with-specification")
-    public ResponseEntity<String> createCarWithSpecification(@RequestBody Map<String, Object> request)
-    {
-        Car car = new Car();
-        car.setChassis((String) request.get("chassis"));
-        car.setPrice((Float) request.get("price"));
-        car.setColor((String) request.get("color"));
-        car.setWheelSize((Integer) request.get("wheelSize"));
-        car.setFuelType((String) request.get("fuelType"));
-        car.setYear((Integer) request.get("year"));
-        car.setEngine((String) request.get("engine"));
-        car.setTransmission((String) request.get("transmission"));
-        car.setMileage((Integer) request.get("mileage"));
-        car.setCarCondition((String) request.get("carCondition"));
+    public ResponseEntity<String> createCarWithSpecification(@RequestBody Map<String, Object> request) {
+        try {
+            // Criar o objeto Car a partir do Map
+            Car car = new Car();
+            car.setChassis((String) request.get("chassis"));
+            car.setPrice(Float.parseFloat(request.get("price").toString()));
+            car.setColor((String) request.get("color"));
+            car.setWheelSize(Integer.parseInt(request.get("wheelSize").toString()));
+            car.setFuelType((String) request.get("fuelType"));
+            car.setYear(Integer.parseInt(request.get("year").toString()));
+            car.setEngine((String) request.get("engine"));
+            car.setTransmission((String) request.get("transmission"));
+            car.setMileage(Integer.parseInt(request.get("mileage").toString()));
+            car.setCarCondition((String) request.get("carCondition"));
 
-        Specification specification = new Specification();
-        specification.setCategory((String) request.get("category"));
-        specification.setModel((String) request.get("model"));
-        specification.setVersion((String) request.get("version"));
+            // Criar o objeto Specification a partir do Map
+            Specification specification = new Specification();
+            specification.setCategory((String) request.get("category"));
+            specification.setModel((String) request.get("model"));
+            specification.setVersion((String) request.get("version"));
 
-        carService.createCarWithSpecification(car, specification);
+            // Salvar o carro e a especificação
+            carService.createCarWithSpecification(car, specification);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Car and Specification created successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Car and Specification created successfully");
+        } catch (Exception e) {
+            // Log de erro (opcional)
+            System.err.println("Erro ao criar carro: " + e.getMessage());
 
+            // Retornar erro ao cliente
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar carro: " + e.getMessage());
+        }
     }
-
-//    @PostMapping
-//    public ResponseEntity<Car> createCar(@RequestBody Car car) {
-//        try {
-//            Car createdCar = carService.createCar(car);
-//            return new ResponseEntity<>(createdCar, HttpStatus.CREATED);
-//        } catch (RuntimeException e) {
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
     @GetMapping("/{chassis}")
     public ResponseEntity<Car> getCarByChassis(@PathVariable String chassis) {
@@ -69,8 +68,8 @@ public class CarController {
 
     @GetMapping
     public ResponseEntity<List<Car>> getAllCars() {
-        List<Car> cars = carService.findAllCars();
-        return new ResponseEntity<>(cars, HttpStatus.OK);
+        List<Car> cars = carService.findAllCarsWithSpecifications();
+        return ResponseEntity.ok(cars);
     }
 
     @PutMapping("/{chassis}")

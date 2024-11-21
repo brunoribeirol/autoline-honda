@@ -22,6 +22,14 @@ public class TradeInCreditService {
         tradeInCreditRepository.saveTradeInCredit(tradeInCredit);
         return tradeInCredit;
     }
+//    public TradeInCredit createTradeInCredit(TradeInCredit tradeInCredit) {
+//        if (!carRepository.findCarByChassis(tradeInCredit.getUsedCarChassis()).isPresent()) {
+//            throw new RuntimeException("Car chassis not found: " + tradeInCredit.getUsedCarChassis());
+//        }
+//        tradeInCreditRepository.saveTradeInCredit(tradeInCredit);
+//        return tradeInCredit;
+//    }
+
 
     public TradeInCredit updateTradeInCredit(TradeInCredit tradeInCredit) {
         tradeInCreditRepository.updateTradeInCreditByTradeId(tradeInCredit);
